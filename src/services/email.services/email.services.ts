@@ -4,7 +4,9 @@ import nodemailer from 'nodemailer';
 import pug from 'pug';
 import { IUser } from '../../interfaces/user.interface';
 import { IEmail } from '../../interfaces/email-interface';
+import { injectable } from 'tsyringe';
 
+@injectable()
 class Email implements IEmail {
   private from: string;
 

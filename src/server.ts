@@ -1,22 +1,22 @@
-import "dotenv/config";
-import "reflect-metadata";
-import MongoDBConnection from "./configs/db.configs";
-import { app } from "./app";
-import { Server } from "http";
-import { Server as httpsServer } from "https";
+import { Server } from 'http';
+import { Server as httpsServer } from 'https';
+import 'dotenv/config';
+import 'reflect-metadata';
+import './di.injection/di.injection';
+import MongoDBConnection from './configs/db.configs';
+import { app } from './app';
 
-const mongoDBConnection = new MongoDBConnection(
-  process.env.MONGO_URI as string
-);
+const mongoDBConnection = new MongoDBConnection(process.env.MONGO_URI as string);
 
 let server: Server | httpsServer;
+const port = process.env.PORT;
 
 mongoDBConnection
   .connect()
   .then(() => {
-    console.log("Connected to Database!!!");
-    server = app.listen(3000, () => {
-      console.log('App listening on port "3000"');
+    console.log('Connected to Database!!!');
+    server = app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
     });
   })
   .catch((err) => {

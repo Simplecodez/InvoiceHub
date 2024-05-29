@@ -1,6 +1,9 @@
 import express, { Router } from 'express';
+import { container } from 'tsyringe';
+import UserRegistrationService from '../controllers/auth.controller';
 
-// Register UserModel with the container using the token
+const userRegistrationService = container.resolve(UserRegistrationService);
+
 class AuthRouter {
   private router: Router;
   constructor() {
@@ -8,7 +11,9 @@ class AuthRouter {
     this.initialize();
   }
 
-  private initialize() {}
+  private initialize() {
+    this.router.post('/register', userRegistrationService.register());
+  }
   getRouter(): Router {
     return this.router;
   }

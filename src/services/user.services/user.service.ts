@@ -1,10 +1,12 @@
 import { IUserService } from '../../interfaces/user.interface';
 import { Model } from 'mongoose';
 import { IUser } from '../../interfaces/user.interface';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 class UserService implements IUserService {
   private userModel: Model<IUser>;
-  constructor(_userModel: Model<IUser>) {
+  constructor(@inject('UserModel') _userModel: Model<IUser>) {
     this.userModel = _userModel;
   }
 

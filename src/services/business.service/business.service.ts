@@ -1,10 +1,11 @@
 import { Model } from 'mongoose';
-import userModel from '../../models/user.model';
 import { IBusiness, IBusinessService } from '../../interfaces/business.interface';
+import { inject, injectable } from 'tsyringe';
 
-class UserService implements IBusinessService {
+@injectable()
+class BusinessService implements IBusinessService {
   private businessModel: Model<IBusiness>;
-  constructor(_businessModel: Model<IBusiness>) {
+  constructor(@inject('BusinessModel') _businessModel: Model<IBusiness>) {
     this.businessModel = _businessModel;
   }
 
@@ -38,4 +39,4 @@ class UserService implements IBusinessService {
   }
 }
 
-export default UserService;
+export default BusinessService;
