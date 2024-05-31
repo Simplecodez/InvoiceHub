@@ -1,8 +1,10 @@
 import express, { Router } from 'express';
 import { container } from 'tsyringe';
-import UserRegistrationService from '../controllers/auth.controller';
+import UserRegistrationController from '../controllers/auth/register.controller';
+import UserActivationController from '../controllers/auth/activation.controller';
 
-const userRegistrationService = container.resolve(UserRegistrationService);
+const userRegistrationController = container.resolve(UserRegistrationController);
+const userActivationController = container.resolve(UserActivationController);
 
 class AuthRouter {
   private router: Router;
@@ -12,7 +14,8 @@ class AuthRouter {
   }
 
   private initialize() {
-    this.router.post('/register', userRegistrationService.register());
+    this.router.post('/register', userRegistrationController.register());
+    this.router.post('/activate/:activation_token', userActivationController.activate());
   }
   getRouter(): Router {
     return this.router;

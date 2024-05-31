@@ -8,11 +8,13 @@ import { IEmail } from '../interfaces/email-interface';
 import Email from '../services/email.services/email.services';
 import UserService from '../services/user.services/user.service';
 import BusinessService from '../services/business.service/business.service';
-import UserRegistrationService from '../controllers/auth.controller';
+import UserRegistrationController from '../controllers/auth/register.controller';
+import UserActivationController from '../controllers/auth/activation.controller';
 
 container.register<Model<IUser>>('UserModel', { useValue: User });
 container.register<Model<IBusiness>>('BusinessModel', { useValue: Business });
 container.register<IUserService>('UserService', { useClass: UserService });
 container.register<IBusinessService>('BusinessService', { useClass: BusinessService });
-container.register<UserRegistrationService>('UserRegistrationService', UserRegistrationService);
+container.register<UserRegistrationController>('UserRegistrationService', UserRegistrationController);
+container.register<UserActivationController>('UserActivationController', UserActivationController);
 container.register<IEmail>('IEmail', { useClass: Email });

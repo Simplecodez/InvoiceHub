@@ -1,15 +1,15 @@
-import { Request, Response, NextFunction, response } from 'express';
-import { IEmail } from '../interfaces/email-interface';
-import { IUser, IUserService } from '../interfaces/user.interface';
-import { catchAsync } from '../utils/catch.async.utils';
-import { userSignUpValidationSchema } from '../validators/user.validator';
-import Utils from '../utils/user.utils';
-import { MongoServerError } from 'mongodb';
-import { IBusiness, IBusinessService } from '../interfaces/business.interface';
+import { Request, Response, NextFunction } from 'express';
 import { inject, injectable } from 'tsyringe';
+import { IEmail } from '../../interfaces/email-interface';
+import { IUser, IUserService } from '../../interfaces/user.interface';
+import { catchAsync } from '../../utils/catch.async.utils';
+import { userSignUpValidationSchema } from '../../validators/user.validator';
+import Utils from '../../utils/user.utils';
+import { MongoServerError } from 'mongodb';
+import { IBusiness, IBusinessService } from '../../interfaces/business.interface';
 
 @injectable()
-class UserRegistrationService {
+class UserRegistrationController {
   private userService: IUserService;
   private businessService: IBusinessService;
   private email: IEmail;
@@ -60,4 +60,4 @@ class UserRegistrationService {
   }
 }
 
-export default UserRegistrationService;
+export default UserRegistrationController;

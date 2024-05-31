@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import authRouter from './routers/auth.router';
-import errorHandler from './controllers/error.controller';
+import errorHandler from './controllers/error/error.controller';
 
 const app: Application = express();
 app.use(express.json({ limit: '10kb' }));

@@ -21,8 +21,7 @@ class UserService implements IUserService {
     }
     if (typeof params === 'object') {
       if (lean) return await this.userModel.findOne(params).lean();
-
-      return await this.userModel.findOne(params).select('+password +is_email_active +is_active +activation_secret');
+      return await this.userModel.findOne(params).select('+password +is_active +activation_secret');
     }
     return null;
   }

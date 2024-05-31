@@ -5,7 +5,7 @@ export interface IBusiness {
   business_address: string;
   business_description: string;
   user: ObjectId;
-  active: boolean;
+  is_active: boolean;
   type: string;
   created_at: Date;
 }

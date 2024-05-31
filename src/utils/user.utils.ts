@@ -34,12 +34,12 @@ class Utils {
     const urlActivationToken = crypto.randomBytes(32).toString('hex');
     const activationURL = `${req.protocol}://${req.get('host')}/api/v1/auth/activate/${urlActivationToken}`;
     const activationToken = crypto.createHash('sha256').update(urlActivationToken).digest('hex');
-    const activationTokenExpire = new Date(Date.now() + 40 * 60 * 1000);
+    const activationTokenExpire = new Date(Date.now() + 30 * 1000);
     return { activationURL, activationToken, activationTokenExpire };
   }
 
-  static verifyOTP(otp: string): string {
-    return crypto.createHash('sha256').update(otp).digest('hex');
+  static verifyToken(token: string): string {
+    return crypto.createHash('sha256').update(token).digest('hex');
   }
 
   static async verifyPassword(candidatePassword: string, userPassword: string): Promise<boolean> {
@@ -66,6 +66,7 @@ class Utils {
     // False means NOT changed
     return false;
   }
+
   static generateCSRFToken(userId: string): string {
     return crypto
       .createHmac('sha256', process.env.CSRF_SECRET as string)
