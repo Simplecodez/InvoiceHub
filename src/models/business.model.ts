@@ -6,7 +6,7 @@ const businessSchema = new Schema<IBusiness>({
   business_address: { type: String },
   business_description: { type: String },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  is_active: { type: Boolean, default: false },
+  is_active: { type: Boolean, default: false, select: false },
   type: {
     type: String,
     enum: ['business', 'individual'],

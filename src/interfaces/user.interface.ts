@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Document } from 'mongoose';
+import { Document } from 'mongodb';
 import { Request } from 'express';
 
 export interface IUser extends Document {
@@ -7,7 +7,7 @@ export interface IUser extends Document {
   first_name: string;
   last_name: string;
   business_name: string;
-  email: string;
+  email?: string;
   is_active?: boolean;
   role?: string;
   password?: string;
@@ -26,6 +26,7 @@ export interface IUserRequest extends Request {
 export interface IUserService {
   createOne(data: Partial<IUser>): Promise<IUser>;
   findOne(params: string | object, lean: boolean): Promise<IUser | null>;
+  findAll(queryObj: object): Promise<IUser[]>;
   updateOne(): Promise<void>;
   deleteOne(email: string): Promise<void>;
   findOneAndUpdate(filter: object, update: object): Promise<IUser | null>;

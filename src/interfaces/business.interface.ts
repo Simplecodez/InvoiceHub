@@ -13,6 +13,7 @@ export interface IBusiness {
 export interface IBusinessService {
   createOne(data: Partial<IBusiness>): Promise<IBusiness>;
   findOne(params: string | object, lean: boolean): Promise<IBusiness | null>;
+  findAll(queryObj: object): Promise<IBusiness[]>;
   updateOne(): Promise<void>;
   deleteOne(email: string): Promise<void>;
   findOneAndUpdate(filter: object, update: object): Promise<IBusiness | null>;

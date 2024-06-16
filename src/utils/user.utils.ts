@@ -2,7 +2,6 @@ import * as crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { Response, Request } from 'express';
-import { ObjectId } from 'mongoose';
 
 class Utils {
   private static signToken(id: string, expiresin: string) {
@@ -29,6 +28,26 @@ class Utils {
       sameSite: 'none'
     });
   }
+
+  // static speakEasy() {
+  //   var secret = speakeasy.generateSecret({ length: 20 }).base32;
+  //   const otp = speakeasy.totp({
+  //     secret,
+  //     encoding: 'base32',
+  //     step: 2400
+  //   });
+
+  //   return { otp, secret };
+  // }
+
+  // static speakEasyVerify(secret: string, token: string) {
+  //   return speakeasy.totp.verify({
+  //     secret,
+  //     encoding: 'base32',
+  //     token: token,
+  //     step: 2400
+  //   });
+  // }
 
   static generateActivationTokenAndURL(req: Request): { activationURL: string; activationToken: string; activationTokenExpire: Date } {
     const urlActivationToken = crypto.randomBytes(32).toString('hex');

@@ -26,6 +26,10 @@ class BusinessService implements IBusinessService {
     return null;
   }
 
+  async findAll(queryObj: object) {
+    return await this.businessModel.find(queryObj);
+  }
+
   async updateOne(): Promise<void> {}
 
   async deleteOne(email: String): Promise<void> {
