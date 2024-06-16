@@ -11,19 +11,11 @@ import { AppError } from '../../utils/app.error.utils';
 
 @injectable()
 class UserRegistrationController {
-  private userService: IUserService;
-  private businessService: IBusinessService;
-  private email: IEmail;
-
   constructor(
-    @inject('UserService') _userService: IUserService,
-    @inject('BusinessService') _businessService: IBusinessService,
-    @inject('IEmail') _email: IEmail
-  ) {
-    this.userService = _userService;
-    this.businessService = _businessService;
-    this.email = _email;
-  }
+    @inject('UserService') private readonly userService: IUserService,
+    @inject('BusinessService') private readonly businessService: IBusinessService,
+    @inject('IEmail') private readonly email: IEmail
+  ) {}
 
   private extractRegistrationData(req: Request) {
     const { first_name, last_name, email, business_name, password, password_confirm } = req.body;
@@ -65,7 +57,16 @@ class UserRegistrationController {
       const userId = (req as IUserRequest).user._id;
       const user = await this.userService.findOne({ _id: userId }, false);
       if (!user) return next(new AppError('No user found!', 404));
-      if (user.is_active) return next(new AppError('Account is active', 402));
+      if (user.is_active) return next(new AppError('Account is active', 409));
+      const { activationURL, activationTokenExpire, activationToken } = Utils.generateActivationTokenAndURL(req);
+      user.activation_token_expire = activationTokenExpire;
+      user.activation_secret = activationToken;
+      await user.save();
+      await this.sendEmail(user, activationURL);
+      res.status(200).json({
+        status: 'success',
+        message: 'Activation token has been resent.'
+      });
     });
   }
 }

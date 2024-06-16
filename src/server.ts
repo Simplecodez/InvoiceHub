@@ -2,7 +2,7 @@ import { Server } from 'http';
 import { Server as httpsServer } from 'https';
 import 'dotenv/config';
 import 'reflect-metadata';
-import './di.injection/di.injection';
+import './diinjection/di.injection';
 import MongoDBConnection from './configs/db.configs';
 import { app } from './app';
 

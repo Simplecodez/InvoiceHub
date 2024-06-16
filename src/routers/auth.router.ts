@@ -3,10 +3,12 @@ import { container } from 'tsyringe';
 import UserRegistrationController from '../controllers/auth/register.controller';
 import UserActivationController from '../controllers/auth/activation.controller';
 import UserSigninController from '../controllers/auth/signin.controller';
+import ProtectUser from '../middlewares/auth/protect.middleware';
 
 const userRegistrationController = container.resolve(UserRegistrationController);
 const userActivationController = container.resolve(UserActivationController);
 const userSigninController = container.resolve(UserSigninController);
+const protect = container.resolve(ProtectUser);
 class AuthRouter {
   private router: Router;
   constructor() {
@@ -16,8 +18,9 @@ class AuthRouter {
 
   private initialize() {
     this.router.post('/register', userRegistrationController.register());
-    this.router.post('/activate/:activation_token', userActivationController.activate());
+    this.router.get('/activate/:activation_token', userActivationController.activate());
     this.router.post('/signin', userSigninController.signin());
+    this.router.get('/resent-activation-token', protect.protect(), userRegistrationController.resendActivationToken());
   }
   getRouter(): Router {
     return this.router;

@@ -7,10 +7,7 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 class ProtectUser {
-  private userService: IUserService;
-  constructor(@inject('UserService') _userService: IUserService) {
-    this.userService = _userService;
-  }
+  constructor(@inject('UserService') private readonly userService: IUserService) {}
 
   private extractJWTToken(req: Request) {
     let jwtToken: string | undefined = '';

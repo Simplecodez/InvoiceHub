@@ -53,7 +53,7 @@ class Utils {
     const urlActivationToken = crypto.randomBytes(32).toString('hex');
     const activationURL = `${req.protocol}://${req.get('host')}/api/v1/auth/activate/${urlActivationToken}`;
     const activationToken = crypto.createHash('sha256').update(urlActivationToken).digest('hex');
-    const activationTokenExpire = new Date(Date.now() + 30 * 1000);
+    const activationTokenExpire = new Date(Date.now() + 12 * 60 * 60 * 1000);
     return { activationURL, activationToken, activationTokenExpire };
   }
 
