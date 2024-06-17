@@ -14,7 +14,7 @@ class UserRegistrationController {
   constructor(
     @inject('UserService') private readonly userService: IUserService,
     @inject('BusinessService') private readonly businessService: IBusinessService,
-    @inject('IEmail') private readonly email: IEmail
+    @inject('Email') private readonly email: IEmail
   ) {}
 
   private extractRegistrationData(req: Request) {

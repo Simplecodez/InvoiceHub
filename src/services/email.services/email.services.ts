@@ -11,7 +11,7 @@ class Email implements IEmail {
   private from: string;
 
   constructor() {
-    this.from = `Mixr <${process.env.EMAIL_FROM}>`;
+    this.from = `InvoiceApp <${process.env.EMAIL_FROM}>`;
   }
 
   private newTransport() {

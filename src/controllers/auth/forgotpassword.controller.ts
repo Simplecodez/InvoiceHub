@@ -10,6 +10,7 @@ import { inject, injectable } from 'tsyringe';
 @injectable()
 class ForgotPasswordController {
   private static PASSWORD_RESET_EXPIRATION_TIME = 15 * 60 * 1000;
+
   constructor(
     @inject('UserService') private readonly userService: IUserService,
     @inject('Email') private readonly email: IEmail
@@ -23,7 +24,7 @@ class ForgotPasswordController {
 
   private async fetchUser(email: string) {
     const user = await this.userService.findOne({ email }, false);
-    if (!user) throw new AppError('Invalid email or user not found!', 400);
+    if (!user) throw new AppError('If the email is associated with an account, you will receive a message with your reset token.', 400);
     return user;
   }
 
@@ -52,6 +53,7 @@ class ForgotPasswordController {
       const user = await this.fetchUser(email);
       const otp = await this.updateFieldsForForgotPassword(user);
       await this.sendEmail(user, otp);
+      console.log(otp);
       res.status(200).json({
         status: 'success',
         message: 'Please check your email your a reset token.'

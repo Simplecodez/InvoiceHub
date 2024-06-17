@@ -24,4 +24,4 @@ container.register<UserRegistrationController>('UserRegistrationService', UserRe
 container.register<ForgotPasswordController>('ForgotPasswordController', { useClass: ForgotPasswordController });
 container.register<UserSigninController>('UserSigninController', UserSigninController);
 container.register<ProtectUser>('ProtectUser', ProtectUser);
-container.register<IEmail>('IEmail', { useClass: Email });
+container.register<IEmail>('Email', { useClass: Email });
