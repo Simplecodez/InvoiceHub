@@ -1,6 +1,7 @@
 import * as crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import otpGenerator from 'otp-generator';
 import { Response, Request } from 'express';
 
 class Utils {
@@ -55,6 +56,18 @@ class Utils {
     const activationToken = crypto.createHash('sha256').update(urlActivationToken).digest('hex');
     const activationTokenExpire = new Date(Date.now() + 12 * 60 * 60 * 1000);
     return { activationURL, activationToken, activationTokenExpire };
+  }
+
+  static generateActivationOTP(): { otp: string; secret: string; activationTokenExpire: Date } {
+    const otp = otpGenerator.generate(6, {
+      digits: true,
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false
+    });
+    const secret = crypto.createHash('sha256').update(otp).digest('hex');
+    const activationTokenExpire = new Date(Date.now() + 30 * 60 * 1000);
+    return { otp, secret, activationTokenExpire };
   }
 
   static verifyToken(token: string): string {

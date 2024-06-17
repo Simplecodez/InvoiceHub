@@ -9,14 +9,11 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 class ForgotPasswordController {
-  private userService: IUserService;
-  private email: IEmail;
   private static PASSWORD_RESET_EXPIRATION_TIME = 15 * 60 * 1000;
-
-  constructor(@inject('UserService') _userService: IUserService, @inject('Email') _email: IEmail) {
-    this.userService = _userService;
-    this.email = _email;
-  }
+  constructor(
+    @inject('UserService') private readonly userService: IUserService,
+    @inject('Email') private readonly email: IEmail
+  ) {}
 
   protected validateInput(email: string) {
     if (!email) throw new AppError('Please provide an email.', 400);

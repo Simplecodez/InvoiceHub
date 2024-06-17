@@ -12,6 +12,7 @@ import UserRegistrationController from '../controllers/auth/register.controller'
 import UserActivationController from '../controllers/auth/activation.controller';
 import UserSigninController from '../controllers/auth/signin.controller';
 import ProtectUser from '../middlewares/auth/protect.middleware';
+import ForgotPasswordController from '../controllers/auth/forgotpassword.controller';
 
 // Models
 container.register<Model<IUser>>('UserModel', { useValue: User });
@@ -20,6 +21,7 @@ container.register<IUserService>('UserService', { useClass: UserService });
 container.register<IBusinessService>('BusinessService', { useClass: BusinessService });
 container.register<UserActivationController>('UserActivationController', UserActivationController);
 container.register<UserRegistrationController>('UserRegistrationService', UserRegistrationController);
+container.register<ForgotPasswordController>('ForgotPasswordController', { useClass: ForgotPasswordController });
 container.register<UserSigninController>('UserSigninController', UserSigninController);
 container.register<ProtectUser>('ProtectUser', ProtectUser);
 container.register<IEmail>('IEmail', { useClass: Email });
