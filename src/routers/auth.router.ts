@@ -27,6 +27,7 @@ class AuthRouter {
     this.router.post('/forgot-password', forgotPasswordController.forgotPassword());
     this.router.get('/resent-activation-token', protectController.protect(), userRegistrationController.resendActivationToken());
     this.router.post('/verify-password-reset-token', passwordResetController.verifyResetToken());
+    this.router.post('/reset-password', passwordResetController.resetPassword());
   }
   getRouter(): Router {
     return this.router;
