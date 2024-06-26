@@ -40,7 +40,6 @@ class UserRegistrationController {
       await userSignUpValidationSchema.validateAsync(extractedUserData);
       const { activationURL, activationTokenExpire, activationToken } = Utils.generateActivationTokenAndURL(req);
       const newUser: Partial<IUser> = { ...extractedUserData, activation_secret: activationToken, activation_token_expire: activationTokenExpire };
-
       const createdUser = await this.userService.createOne(newUser);
       await this.businessService.createOne({ business_name: newUser.business_name, user: createdUser._id });
       await this.sendEmail(newUser, activationURL);
@@ -65,7 +64,7 @@ class UserRegistrationController {
       await this.sendEmail(user, activationURL);
       res.status(200).json({
         status: 'success',
-        message: 'Activation token has been resent.'
+        message: 'Activation token has been resent to your email.'
       });
     });
   }

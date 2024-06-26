@@ -24,7 +24,7 @@ class ForgotPasswordController {
 
   private async fetchUser(email: string) {
     const user = await this.userService.findOne({ email }, false);
-    if (!user) throw new AppError('If the email is associated with an account, you will receive a message with your reset token.', 400);
+    if (!user) throw new AppError('If the email is associated with an account, you will receive a message with your reset token.', 200);
     return user;
   }
 

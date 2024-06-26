@@ -50,6 +50,10 @@ class Utils {
   //   });
   // }
 
+  static verifyOTP(otp: string): string {
+    return crypto.createHash('sha256').update(otp).digest('hex');
+  }
+
   static generateActivationTokenAndURL(req: Request): { activationURL: string; activationToken: string; activationTokenExpire: Date } {
     const urlActivationToken = crypto.randomBytes(32).toString('hex');
     const activationURL = `${req.protocol}://${req.get('host')}/api/v1/auth/activate/${urlActivationToken}`;
