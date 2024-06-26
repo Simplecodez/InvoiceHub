@@ -13,15 +13,17 @@ import UserActivationController from '../controllers/auth/activation.controller'
 import UserSigninController from '../controllers/auth/signin.controller';
 import ProtectUser from '../middlewares/auth/protect.middleware';
 import ForgotPasswordController from '../controllers/auth/forgotpassword.controller';
+import { PasswordResetController } from '../controllers/auth/reset-password.controller';
 
 // Models
 container.register<Model<IUser>>('UserModel', { useValue: User });
 container.register<Model<IBusiness>>('BusinessModel', { useValue: Business });
 container.register<IUserService>('UserService', { useClass: UserService });
 container.register<IBusinessService>('BusinessService', { useClass: BusinessService });
-container.register<UserActivationController>('UserActivationController', UserActivationController);
-container.register<UserRegistrationController>('UserRegistrationService', UserRegistrationController);
+container.register<UserActivationController>('UserActivationController', { useClass: UserActivationController });
+container.register<UserRegistrationController>('UserRegistrationService', { useClass: UserRegistrationController });
 container.register<ForgotPasswordController>('ForgotPasswordController', { useClass: ForgotPasswordController });
-container.register<UserSigninController>('UserSigninController', UserSigninController);
+container.register<UserSigninController>('UserSigninController', { useClass: UserSigninController });
+container.register<PasswordResetController>('PasswordResetController', { useClass: PasswordResetController });
 container.register<ProtectUser>('ProtectUser', ProtectUser);
 container.register<IEmail>('Email', { useClass: Email });

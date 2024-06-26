@@ -8,7 +8,7 @@ import Utils from '../../utils/user.utils';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
-class PasswordResetController {
+export class PasswordResetController {
   private userService: IUserService;
 
   constructor(@inject('UserService') _userService: IUserService, @inject('Email') _email: IEmail) {
@@ -66,5 +66,3 @@ class PasswordResetController {
     });
   }
 }
-
-export default VerifyTokenAndResetPassword;
